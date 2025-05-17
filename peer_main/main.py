@@ -30,15 +30,15 @@ def main(args):
     device = torch.device("cuda", local_rank)
 
     # Hyperparameters
-    vocab_size = args.vocab_size  # GPT-2 tokenizer vocab size
-    dim = args.dim
-    num_layers = args.num_layers
-    num_heads = args.num_heads
-    num_experts = args.num_experts
-    top_k = args.top_k
-    batch_size = args.batch_size
-    num_epochs = args.num_epochs
-    learning_rate = args.learning_rate
+    vocab_size = int(args.vocab_size)  # GPT-2 tokenizer vocab size
+    dim = int(args.dim)
+    num_layers = int(args.num_layers)
+    num_heads = int(args.num_heads)
+    num_experts = int(args.num_experts)
+    top_k = int(args.top_k)
+    batch_size = int(args.batch_size)
+    num_epochs = int(args.num_epochs)
+    learning_rate = float(args.learning_rate)
     dataset = args.dataset
 
     print(vars(args))
