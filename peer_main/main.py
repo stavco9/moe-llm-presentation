@@ -41,7 +41,7 @@ def main(args):
     learning_rate = args.learning_rate
     dataset = args.dataset
 
-    print(vars(args))
+    print(f"Vocab size is {vocab_size}")
     
     # Initialize tokenizer and model
     print("Loading pretrained GPT2 tokenizer transformer")
