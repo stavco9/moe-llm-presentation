@@ -1,4 +1,5 @@
 import os
+import argparse
 import torch
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -21,23 +22,40 @@ def plot_losses(train_losses, val_losses, epoch, save_dir):
     plt.savefig(os.path.join(save_dir, f'epoch_{epoch+1}_losses.png'))
     plt.close()
 
-# main execution
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--vocab-size")
+    parser.add_argument("--dim")
+    parser.add_argument("--num-layers")
+    parser.add_argument("--num-heads")
+    parser.add_argument("--num-experts")
+    parser.add_argument("--top-k")
+    parser.add_argument("--batch-size")
+    parser.add_argument("--num-epochs")
+    parser.add_argument("--learning-rate")
+    args = parser.parse_args()
+
+    main(args)
+
+# main execution
+def main(args)
     dist.init_process_group(backend='nccl')
     local_rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(local_rank)
     device = torch.device("cuda", local_rank)
 
     # Hyperparameters
-    vocab_size = 50257  # GPT-2 tokenizer vocab size
-    dim = 256
-    num_layers = 4
-    num_heads = 4
-    num_experts = 128 * 128
-    top_k = 8
-    batch_size = 4
-    num_epochs = 10
-    learning_rate = 1e-4
+    vocab_size = args.vocab_size  # GPT-2 tokenizer vocab size
+    dim = args.dim
+    num_layers = args.num_layers
+    num_heads = args.num_heads
+    num_experts = args.num_experts
+    top_k = args.top_k
+    batch_size = args.batch_size
+    num_epochs = args.num_epochs
+    learning_rate = args.learning_rate
+
+    print(vars(args))
     
     # Initialize tokenizer and model
     print("Loading pretrained GPT2 tokenizer transformer")
