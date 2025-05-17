@@ -44,12 +44,16 @@ if __name__ == "__main__":
     tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
     tokenizer.pad_token = tokenizer.eos_token
     print("Finished loading pretrained GPT2 tokenizer transformer")
- 
+    
+    print("Initalizing PEER model")
     model = PEERLanguageModel(vocab_size, dim, num_layers, num_heads, num_experts, top_k).to(device)
-    
+    print("Finished initalizing PEER model")
+
     # Wrap the model with DistributedDataParallel
+    print("Initalizing PEER model with DistributedDataParallel")
     model = DDP(model, device_ids=[local_rank], output_device=local_rank)
-    
+    print("Finished initalizing PEER model with DistributedDataParallel")
+
     print("Loading datasets")
 
     # Load Pile dataset
