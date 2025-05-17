@@ -54,12 +54,10 @@ if __name__ == "__main__":
     #model = DDP(model, device_ids=[local_rank], output_device=local_rank)
     #print("Finished initalizing PEER model with DistributedDataParallel")
 
-    print("Loading datasets")
-
     # Load Pile dataset
+    print("Loading datasets")
     train_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='train')
     val_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='validation')
-    
     print("Finished loading datasets")
 
     # Use DistributedSampler for the training data
