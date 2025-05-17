@@ -40,8 +40,11 @@ if __name__ == "__main__":
     learning_rate = 1e-4
     
     # Initialize tokenizer and model
+    print("Loading pretrained GPT2 tokenizer transformer")
     tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
     tokenizer.pad_token = tokenizer.eos_token
+     print("Finished loading pretrained GPT2 tokenizer transformer")
+ 
     model = PEERLanguageModel(vocab_size, dim, num_layers, num_heads, num_experts, top_k).to(device)
     
     # Wrap the model with DistributedDataParallel
