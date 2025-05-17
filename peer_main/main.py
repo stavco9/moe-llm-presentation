@@ -47,10 +47,14 @@ if __name__ == "__main__":
     # Wrap the model with DistributedDataParallel
     model = DDP(model, device_ids=[local_rank], output_device=local_rank)
     
+    print("Loading datasets")
+
     # Load Pile dataset
     train_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='train')
     val_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='validation')
     
+    print("Finished loading datasets")
+
     # Use DistributedSampler for the training data
     train_sampler = DistributedSampler(train_dataset)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=train_sampler)
