@@ -50,9 +50,9 @@ if __name__ == "__main__":
     print("Finished initalizing PEER model")
 
     # Wrap the model with DistributedDataParallel
-    print("Initalizing PEER model with DistributedDataParallel")
-    model = DDP(model, device_ids=[local_rank], output_device=local_rank)
-    print("Finished initalizing PEER model with DistributedDataParallel")
+    #print("Initalizing PEER model with DistributedDataParallel")
+    #model = DDP(model, device_ids=[local_rank], output_device=local_rank)
+    #print("Finished initalizing PEER model with DistributedDataParallel")
 
     print("Loading datasets")
 
