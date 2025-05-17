@@ -33,12 +33,13 @@ if __name__ == "__main__":
     parser.add_argument("--batch-size")
     parser.add_argument("--num-epochs")
     parser.add_argument("--learning-rate")
+    parser.add_argument("--dataset")
     args = parser.parse_args()
 
     main(args)
 
 # main execution
-def main(args)
+def main(args):
     dist.init_process_group(backend='nccl')
     local_rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(local_rank)
@@ -54,6 +55,7 @@ def main(args)
     batch_size = args.batch_size
     num_epochs = args.num_epochs
     learning_rate = args.learning_rate
+    dataset = args.dataset
 
     print(vars(args))
     
@@ -74,8 +76,8 @@ def main(args)
 
     # Load Pile dataset
     print("Loading datasets")
-    train_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='train')
-    val_dataset = PileDataset('Salesforce/wikitext', tokenizer, split='validation')
+    train_dataset = PileDataset(dataset, tokenizer, split='train')
+    val_dataset = PileDataset(dataset, tokenizer, split='validation')
     print("Finished loading datasets")
 
     # Use DistributedSampler for the training data
