@@ -22,22 +22,6 @@ def plot_losses(train_losses, val_losses, epoch, save_dir):
     plt.savefig(os.path.join(save_dir, f'epoch_{epoch+1}_losses.png'))
     plt.close()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--vocab-size")
-    parser.add_argument("--dim")
-    parser.add_argument("--num-layers")
-    parser.add_argument("--num-heads")
-    parser.add_argument("--num-experts")
-    parser.add_argument("--top-k")
-    parser.add_argument("--batch-size")
-    parser.add_argument("--num-epochs")
-    parser.add_argument("--learning-rate")
-    parser.add_argument("--dataset")
-    args = parser.parse_args()
-
-    main(args)
-
 # main execution
 def main(args):
     dist.init_process_group(backend='nccl')
@@ -118,3 +102,19 @@ def main(args):
 
     # Clean up
     dist.destroy_process_group()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--vocab-size")
+    parser.add_argument("--dim")
+    parser.add_argument("--num-layers")
+    parser.add_argument("--num-heads")
+    parser.add_argument("--num-experts")
+    parser.add_argument("--top-k")
+    parser.add_argument("--batch-size")
+    parser.add_argument("--num-epochs")
+    parser.add_argument("--learning-rate")
+    parser.add_argument("--dataset")
+    args = parser.parse_args()
+
+    main(args)
